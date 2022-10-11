@@ -29,3 +29,8 @@ Criar executável
 
 Após isso será criado um repositório *build*, onde ficará o executável e as suas dependências.
 Os arquivos necessários para o funcionamento do programa são todos os que estão dentro da pasta *build*
+
+Execução do portal:
+```python manage.py runserver```
+
+Depois executa o main.py

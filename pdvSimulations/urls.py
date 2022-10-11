@@ -3,6 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.simulations, name='simulations'),
-    path('newsimulation/', views.newsimulation, name='newsimulation'),
-    path('newitem/', views.newitem, name='newitem'),
+    path('delete_simulation/<simulation_id>', views.delete_simulation, name='delete_simulation'),
+    path('edit_simulation/<simulation_id>', views.edit_simulation, name='edit_simulation'),
+    path('simulation_items/', views.simulation_items, name='simulation_items'),
+    path('delete_items/<item_id>', views.delete_items, name='delete_items'),
+    path('edit_items/<item_id>', views.edit_items, name='edit_items'),
 ]

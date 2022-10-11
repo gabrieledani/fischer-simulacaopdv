@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -10,19 +11,15 @@
     <!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script-->
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container p-4 pb-0">
-          <a class="navbar-brand" href="https://www.fischer.com.br/"><span class="mb-0 h1">Fischer</span></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="/">SimulaPDV</a>
-            </div>
-          </div>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="https://www.fischer.com.br/">
+            <img src="{% static 'imgs/Fischer_White.png'%}" alt="LOGO"> 
+          </a>
+          <span class="navbar-text text-white h2">{% block title %} Inserir Simulação {% endblock %}</span>
+          <a class="nav-link active" href="{% url 'simulations' %}"><span style="color: #996674;" class="navbar-text h1">SimulaPDV</span></a>
         </div>
-      </nav>
+    </nav>
     <br>
     <div class="container">
         {% block content %}
@@ -30,7 +27,7 @@
     </div>
     <br>
     <footer class="bg-dark text-center text-white">
-        <div class="container p-4 pb-0">
+        <div class="container-fluid">
           <section >
             <!--a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a-->
             <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-twitter"></i></a>
