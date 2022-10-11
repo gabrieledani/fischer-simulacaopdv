@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/><br/>
+{% if submitted %}
+    <h4 class="text-center">Sua reserva foi efetuada com Sucesso!</h4>
+    <h4 class="text-center">Veja suas reservas <a href={% url 'home' %}>AQUI </a></h4>
+
+{% else %}
+
+    <div class="col-md-6 offset-md-3">
+        <form method="POST" action="{% url 'newsimulation' %}">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="Salvar Item" class="btn btn-secondary">
+        </form>
+    </div>
+    {% endif %}
+    <br/><br/>
+    <br/><br/>
+{% endblock %}

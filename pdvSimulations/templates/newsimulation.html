@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/><br/>
+
+<div class="col-md-6 offset-md-3">
+    <form method="POST" action="{% url 'newsimulation' %}">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Salvar Simulação" class="btn btn-secondary">
+    </form>
+</div>
+<br/><br/>
+{% if todas_simulacoes %}
+{% for simulacao in todas_simulacoes %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Simulação</th>
+                <th>Data</th>
+                <th>Representante</th>
+                <th>Cliente</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <th scope="row">{{ simulacao.id }}</th>
+                <td>{{ simulacao.dt_simulacao }}</td>
+                <td>{{ simulacao.cod_rep }}</td>
+                <td>{{ simulacao.cod_cliente }}</td>
+                <td>{{ simulacao.situacao }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endfor %}
+{% endif %}
+<br/><br/>
+<div class="text-end">
+    <button type="button" onclick="location.href='{% url 'newitem' %}'"  class="btn btn-secondary">Novo Item</button>
+</div>
+{% endblock %}

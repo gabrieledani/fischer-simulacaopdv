@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <br>
+
+    <div class="col-md-6 offset-md-3">
+        <form method="POST">
+            {% csrf_token %}
+            <h3>Inserir Simulação</h3>
+            
+            {{ form.as_p }}
+
+            <div class="text-end">
+                <input type="submit" value="Salvar Simulação" class="btn btn-secondary">
+            </div>
+            
+        </form>
+    </div>
+    <br>
+    {% if todas_simulacoes %}
+    <h3>Simulações</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-danger">
+                <th>Simulação</th>
+                <th>Data</th>
+                <th>Representante</th>
+                <th>Cliente</th>
+                <th>Situação</th>
+                <th>Itens</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        {% for simulacao in todas_simulacoes %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ simulacao.id }}</th>
+                    <td>{{ simulacao.dt_simulacao }}</td>
+                    <td>{{ simulacao.cod_rep }}</td>
+                    <td>{{ simulacao.cod_cliente }}</td>
+                    <td>{{ simulacao.situacao }}</td>
+                    <td>Itens</td>
+                    <td>Excluir</td>
+                </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+<br>
+<br>
+{% endblock %}
