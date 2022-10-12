@@ -1,20 +1,16 @@
-from contextlib import redirect_stderr
-from email import message
-from typing import List
 from django.shortcuts import render, redirect
 from .models import Simulacao,Itens_Simulacao
 from .forms import NovaSimulacao,NovoItem
-from django.http import HttpResponseRedirect
+
 
 def simulations(request):
     if request.method == 'POST':
         form = NovaSimulacao(request.POST or None)
         if form.is_valid():
             form.save()
-
     form = NovaSimulacao()
-    todas_simulacoes = Simulacao.objects.all
-    return render(request, 'simulations.html',{'form': form,'todas_simulacoes':todas_simulacoes})
+    todas_simulacoes = Simulacao.objects.all().order_by('-id')
+    return render(request, 'simulations.html',{'title':'Nova Simulação de Pedido','form': form,'todas_simulacoes':todas_simulacoes})
 
 def delete_simulation(request, simulation_id):
     simulacao = Simulacao.objects.get(pk=simulation_id)
@@ -31,7 +27,7 @@ def edit_simulation(request, simulation_id):
         simulacao = Simulacao.objects.get(pk=simulation_id)
         form = NovaSimulacao(instance=simulacao)
     todas_simulacoes = Simulacao.objects.all
-    return render(request, 'simulations.html',{'simulacao':simulacao,'form': form,'todas_simulacoes':todas_simulacoes})
+    return render(request, 'simulations.html',{'title':'Editando uma Simulação','simulacao':simulacao,'form': form,'todas_simulacoes':todas_simulacoes})
 
 
 def simulation_items(request, simulation_id):
@@ -42,10 +38,9 @@ def simulation_items(request, simulation_id):
             item_simulacao = form.save(commit=False)
             item_simulacao.simulacao_id = simulation_id
             form.save()
-
     form = NovoItem()
-    lista_itens = Itens_Simulacao.objects.filter(simulacao_id=simulation_id)
-    return render(request, 'simulation_items.html',{'simulacao':simulacao,'form': form,'lista_itens':lista_itens})
+    lista_itens = Itens_Simulacao.objects.filter(simulacao_id=simulation_id).order_by('-id')
+    return render(request, 'simulation_items.html',{'title':'Novo Item da Simulação','simulacao':simulacao,'form': form,'lista_itens':lista_itens})
 
 def delete_items(request, item_id):
     item = Itens_Simulacao.objects.get(pk=item_id)
@@ -59,9 +54,8 @@ def edit_items(request, item_id):
         form = NovoItem(request.POST or None, instance=item)
         if form.is_valid():
             form.save()
-        
     else:
         item = Itens_Simulacao.objects.get(pk=item_id)
         form = NovoItem(instance=item)
     lista_itens = Itens_Simulacao.objects.filter(simulacao_id=item.simulacao)
-    return render(request, 'simulation_items.html',{'simulacao':simulacao,'item':item,'form': form,'lista_itens':lista_itens})
+    return render(request, 'simulation_items.html',{'title':'Editando um Item da Simulação','simulacao':simulacao,'item':item,'form': form,'lista_itens':lista_itens})

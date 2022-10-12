@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Itens da Simulação {% endblock %}
+{% block title %} {{title}} {% endblock %}
 
 {% block content %}
     <table class="table table-bordered">
@@ -25,7 +25,6 @@
             </tr>
         </tbody>
     </table>
-    <h3 class="text-center">Item da Simulação</h3>
     <div class="col-md-6 offset-md-3">
         <form method="POST">
             {% csrf_token %}
@@ -66,7 +65,7 @@
                     <td>{{ item.valor }}</td>
                     <td>{{ item.ean_item }}</td>
                     <!--td>{{ simulacao.situacao }}</td-->
-                    <td><a href="{% url 'delete_items' item.id %}"><i style="color: black;" class="bi bi-trash3-fill h3"></i></a></td>
+                    <td><a onclick="return confirm('Confirma a Exclusão do Item?')" href="{% url 'delete_items' item.id %}"><i style="color: black;" class="bi bi-trash3-fill h3"></i></a></td>
                 </tr>
             </tbody>
         {% endfor %}

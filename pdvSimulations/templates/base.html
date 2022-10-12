@@ -16,7 +16,7 @@
           <a class="navbar-brand" href="https://www.fischer.com.br/">
             <img src="{% static 'imgs/Fischer_White.png'%}" alt="LOGO"> 
           </a>
-          <span class="navbar-text text-white h2">{% block title %} Inserir Simulação {% endblock %}</span>
+          <span class="h2 text-white fw-lighter">{% block title %} Inserir Simulação {% endblock %}</span>
           <a class="nav-link active" href="{% url 'simulations' %}"><span style="color: #996674;" class="navbar-text h1">SimulaPDV</span></a>
         </div>
     </nav>
@@ -27,7 +27,7 @@
     </div>
     <br>
     <footer class="bg-dark text-center text-white">
-        <div class="container-fluid">
+        <!--div class="container-fluid">
           <section >
             <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-cloud-lightning-rain"></i></a>
             <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-cup-hot"></i></a>
@@ -36,11 +36,11 @@
             <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-snow2"></i></a>
             <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-stars"></i></a>
           </section>
-        </div>
-      
-        <!--div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">Powered by Modelo Vencedor 
-          <br><a class="text-white" href="https://modelovencedor.com.br/">modelovencedor.com.br</a>
         </div-->
+      
+        <div class="text-end container-fluid" style="background-color: black;"> 
+          <a href="https://www.ravencode.solutions/"><img src="{% static 'imgs/ravencode.png'%}" alt="LOGO"></a>
+        </div>
       </footer>
     </body>
 </html>

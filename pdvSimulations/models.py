@@ -8,7 +8,7 @@ class Simulacao(models.Model):
     cod_cliente = models.IntegerField()
     cod_empr = models.IntegerField(default=1)
     situacao = models.BooleanField(default=True)
-
+    
     # def __str__(self):
     #     return self.cod_simulacao
 
