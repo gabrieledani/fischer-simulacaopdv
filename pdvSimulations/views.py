@@ -16,43 +16,52 @@ def simulations(request):
     todas_simulacoes = Simulacao.objects.all
     return render(request, 'simulations.html',{'form': form,'todas_simulacoes':todas_simulacoes})
 
-def simulation_items(request):
-    submitted = False
-    if request.method == 'POST':
-        form = NovaSimulacao(request.POST or None)
-        if form.is_valid():
-            form.save()
-        
-        todas_simulacoes = Simulacao.objects.all
-        return render(request, 'simulations.html',{'todas_simulacoes':todas_simulacoes})        
-    else:
-        form = NovaSimulacao()
-        todas_itens = Itens_Simulacao.objects.all
-        context = {'form': form,'submitted':submitted}
-        return render(request, 'simulation_items.html',{})
-
 def delete_simulation(request, simulation_id):
     simulacao = Simulacao.objects.get(pk=simulation_id)
     simulacao.delete()
     return redirect('simulations')
 
-
 def edit_simulation(request, simulation_id):
     if request.method == 'POST':
-        form = NovaSimulacao(request.POST )
+        simulacao = Simulacao.objects.get(pk=simulation_id)
+        form = NovaSimulacao(request.POST or None, instance=simulacao)
         if form.is_valid():
             form.save()
-        #form = NovaSimulacao()
     else:
         simulacao = Simulacao.objects.get(pk=simulation_id)
         form = NovaSimulacao(instance=simulacao)
     todas_simulacoes = Simulacao.objects.all
-    return render(request, 'simulations.html',{'form': form,'todas_simulacoes':todas_simulacoes})
+    return render(request, 'simulations.html',{'simulacao':simulacao,'form': form,'todas_simulacoes':todas_simulacoes})
 
 
+def simulation_items(request, simulation_id):
+    simulacao = Simulacao.objects.get(pk=simulation_id)
+    if request.method == 'POST':
+        form = NovoItem(request.POST or None)
+        if form.is_valid():
+            item_simulacao = form.save(commit=False)
+            item_simulacao.simulacao_id = simulation_id
+            form.save()
 
-def delete_items(request):
-    return render(request, 'simulation_items.html',{})
+    form = NovoItem()
+    lista_itens = Itens_Simulacao.objects.filter(simulacao_id=simulation_id)
+    return render(request, 'simulation_items.html',{'simulacao':simulacao,'form': form,'lista_itens':lista_itens})
 
-def edit_items(request):
-    return render(request, 'simulation_items.html',{})
+def delete_items(request, item_id):
+    item = Itens_Simulacao.objects.get(pk=item_id)
+    item.delete()
+    return redirect('simulation_items',item.simulacao.pk)
+
+def edit_items(request, item_id):
+    item = Itens_Simulacao.objects.get(pk=item_id)
+    simulacao = Simulacao.objects.get(pk=item.simulacao.pk)
+    if request.method == 'POST':
+        form = NovoItem(request.POST or None, instance=item)
+        if form.is_valid():
+            form.save()
+        
+    else:
+        item = Itens_Simulacao.objects.get(pk=item_id)
+        form = NovoItem(instance=item)
+    lista_itens = Itens_Simulacao.objects.filter(simulacao_id=item.simulacao)
+    return render(request, 'simulation_items.html',{'simulacao':simulacao,'item':item,'form': form,'lista_itens':lista_itens})

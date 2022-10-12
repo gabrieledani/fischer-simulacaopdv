@@ -13,7 +13,7 @@ class Simulacao(models.Model):
     #     return self.cod_simulacao
 
 class Itens_Simulacao(models.Model):
-    id_simulacao = models.ForeignKey(Simulacao,on_delete=models.CASCADE)
+    simulacao = models.ForeignKey(Simulacao,on_delete=models.CASCADE)
 
     cod_item = models.CharField(max_length=20)
     cod_mascara = models.CharField(max_length=20,blank=True)
